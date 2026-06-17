@@ -2,6 +2,8 @@ const express = require("express");
 const multer = require("multer");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
+const PORT = process.env.PORT || 3000;
+
 
 const app = express();
 app.use(cors());
@@ -56,7 +58,9 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
   
 });
 
-app.listen(3000, () => {
-  console.log("Servidor corriendo en http://localhost:3000");
+
+app.listen(PORT, () => {
+  console.log("Servidor corriendo en " + PORT);
+
 
 });

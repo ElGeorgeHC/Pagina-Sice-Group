@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sice Group | Careers</title>
+    <meta
+      name="description"
+      content="Join Sice Group. Share your resume in PDF format and discover new career opportunities."
+    />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="en.html#home" aria-label="Sice Group home">
+        <img src="assets/sice-logo-horizontal-color-cropped.png" alt="Sice Group" />
+      </a>
+      <nav aria-label="Main navigation">
+        <a href="en.html#services">Services</a>
+        <a href="en.html#downloads">Presentation</a>
+        <a href="en.html#infrastructure">Infrastructure</a>
+        <a href="https://40.125.67.12/paco/inter/input/actividades.xhtml">PACO</a>
+        <a href="careers.html">Careers</a>
+        <a href="en.html#contact">Contact</a>
+      </nav>
+      <a class="header-action whatsapp-action" href="en.html#contact" aria-label="Contact us on WhatsApp">
+        <img src="assets/whatsapp-icon.png" alt="" aria-hidden="true" />
+        Let's Talk
+      </a>
+      <a class="language-switch" href="bolsa.html" aria-label="Ver versión en español">ES</a>
+    </header>
+
+    <main>
+      <section class="jobs-hero">
+        <div>
+          <p class="eyebrow">Careers</p>
+          <h1>Join a team that moves logistics with experience, commitment, and a passion for service.</h1>
+          <p>
+            We are constantly growing and looking for people who want to grow with us.
+            Share your resume and discover new opportunities.
+          </p>
+        </div>
+        <form
+          class="jobs-form"
+          action="mailto:snavarrete@sicegroup.com,mortega@sicegroup.com?subject=Resume%20Careers%20Sice%20Group"
+          method="post"
+          enctype="multipart/form-data"
+        >
+          <label>
+            Full name
+            <input type="text" name="name" placeholder="Your name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" placeholder="email@example.com" required />
+          </label>
+          <label>
+            Phone
+            <input type="tel" name="phone" placeholder="Your phone number" />
+          </label>
+          <label>
+            Resume in PDF
+            <input type="file" name="resume" accept="application/pdf,.pdf" required />
+          </label>
+          <p class="form-note">Only PDF files are accepted.</p>
+          <button type="submit" class="button primary">Send Resume</button>
+        </form>
+      </section>
+    </main>
+  </body>
+</html>

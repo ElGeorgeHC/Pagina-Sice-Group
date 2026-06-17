@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sice Group | Bolsa de trabajo</title>
+    <meta
+      name="description"
+      content="Forma parte de Sice Group. Comparte tu CV en formato PDF y descubre nuevas oportunidades."
+    />
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html#inicio" aria-label="Sice Group inicio">
+        <img src="assets/sice-logo-horizontal-color-cropped.png" alt="Sice Group" />
+      </a>
+      <nav aria-label="Navegación principal">
+        <a href="index.html#servicios">Servicios</a>
+        <a href="index.html#descargas">Presentación</a>
+        <a href="index.html#infraestructura">Infraestructura</a>
+        <a href="https://40.125.67.12/paco/inter/input/actividades.xhtml">PACO</a>
+        <a href="bolsa.html">Bolsa de trabajo</a>
+        <a href="index.html#contacto">Contacto</a>
+      </nav>
+      <a class="header-action whatsapp-action" href="index.html#contacto" aria-label="Contacto por WhatsApp">
+        <img src="assets/whatsapp-icon.png" alt="" aria-hidden="true" />
+        Hablemos
+      </a>
+      <a class="language-switch" href="careers.html" aria-label="View English version">EN</a>
+    </header>
+
+    <main>
+      <section class="jobs-hero">
+        <div>
+          <p class="eyebrow">Bolsa de trabajo</p>
+          <h1>Forma parte de un equipo que mueve la logística con experiencia, compromiso y pasión por el servicio.</h1>
+          <p>
+            Estamos en constante crecimiento y buscamos personas que quieran crecer con nosotros.
+            Comparte tu CV y descubre nuevas oportunidades.
+          </p>
+        </div>
+        <form id="formCV" 
+              class="jobs-form" 
+              enctype="multipart/form-data">
+          <label>
+            Nombre completo
+            <input type="text" name="nombre" placeholder="Tu nombre" required />
+          </label>
+          <label>
+            Correo electrónico
+            <input type="email" name="correo" placeholder="correo@ejemplo.com" required />
+          </label>
+          <label>
+            Teléfono
+            <input type="tel" name="telefono" placeholder="Tu teléfono" />
+          </label>
+          <label>
+            CV en PDF
+            <input type="file" name="cv" accept="application/pdf,.pdf" required />
+          </label>
+          <p class="form-note">Sólo se permite subir archivos en formato PDF.</p>
+          <button type="submit" class="button primary">Enviar CV</button>
+        </form>
+        
+      </section>
+    </main>
+<script>
+document.getElementById("formCV").addEventListener("submit", async function(e) {
+  e.preventDefault();
+
+  const form = e.target;
+  const formData = new FormData(form);
+
+  try {
+    const response = await fetch("http://localhost:3000/enviar-cv", {
+      method: "POST",
+      body: formData
+    });
+
+    const result = await response.text();
+
+    // ✅ VALIDAR RESPUESTA DEL SERVIDOR
+    if (!response.ok) {
+      throw new Error(result);
+    }
+
+    console.log("Respuesta servidor:", result);
+
+    mostrarToast("✅ CV enviado correctamente","success");
+    form.reset();
+
+  } catch (error) {
+    console.error("ERROR REAL:", error);
+    mostrarToast("❌ " + error.message,"error");
+  }
+});
+</script>
+<style>
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #1a73e8;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.5s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+
+<script>
+function mostrarToast(mensaje) {
+  const toast = document.createElement("div");
+  toast.className = "toast";
+  toast.innerText = mensaje;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => toast.classList.add("show"), 100);
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 300);
+  }, 3000);
+}
+</script>
+  </body>
+</html>

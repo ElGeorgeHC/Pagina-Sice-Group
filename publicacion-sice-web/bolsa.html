@@ -75,7 +75,7 @@ document.getElementById("formCV").addEventListener("submit", async function(e) {
   const formData = new FormData(form);
 
   try {
-    const response = await fetch("http://localhost:3000/enviar-cv", {
+    const response = await fetch("https://pagina-sice-group.onrender.com/enviar-cv", {
       method: "POST",
       body: formData
     });

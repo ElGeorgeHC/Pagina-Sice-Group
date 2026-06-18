@@ -32,7 +32,7 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
 
     const mailOptions = {
       from: "info@sicegroup.com",
-      to: "jhernandez@sicegroup.com",
+      to: "mortega@sicegroup.com,snavarrete@sicegroup.com",
       subject: "CV Bolsa de trabajo Sice Group",
       html: `
         <h3>Nuevo CV recibido</h3>

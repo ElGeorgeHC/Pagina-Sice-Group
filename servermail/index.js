@@ -10,7 +10,7 @@ app.use(cors());
 
 const upload = multer({ dest: "uploads/" });
 
-app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
+app.post("/enviar-cv/form", upload.single("cv"), async (req, res) => {
   try {
     const { nombre, correo, telefono } = req.body;
     const archivo = req.file;

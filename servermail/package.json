@@ -4,12 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-<<<<<<< HEAD
    "start": "node index.js"
-    
-
-    "start": "node index.js"
->>>>>>> 0b68c6f (primer commit)
   },
   "keywords": [],
   "author": "",

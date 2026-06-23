@@ -3,7 +3,10 @@ const multer = require("multer");
 const nodemailer = require("nodemailer");
 const cors = require("cors");
 const PORT = process.env.PORT || 3000;
+<<<<<<< HEAD
 
+
+>>>>>>> 0b68c6f (primer commit)
 
 const app = express();
 app.use(cors());
@@ -58,6 +61,13 @@ app.post("/enviar-cv/form", upload.single("cv"), async (req, res) => {
   
 });
 
+<<<<<<< HEAD
+
+
+app.listen(PORT, () => {
+  console.log("Servidor corriendo en " + PORT);
+
+>>>>>>> 0b68c6f (primer commit)
 
 app.listen(PORT, () => {
   console.log("Servidor corriendo en " + PORT);

@@ -6,9 +6,13 @@ const PORT = process.env.PORT || 3000;
 
 const app = express();
 
+
 app.use(cors({
-  origin: "*"
+  origin: "*",
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type"]
 }));
+
 
 
 const upload = multer({ dest: "uploads/" });

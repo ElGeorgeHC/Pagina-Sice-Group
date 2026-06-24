@@ -24,18 +24,18 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     }
 
     const transporter = nodemailer.createTransport({
-      //host: "smtp.office365.com",
-      //port: 587,
-      //secure: false,
-      service: "gmail",
+      host: "smtp.office365.com",
+      port: 587,
+      secure: false,
+      //service: "gmail",
       auth: {
-        user: "sicegroup.master@gmail.com",
+        user: "info@sicegroup.com",
         pass: process.env.EMAIL_PASS,
       },
     });
 
     const mailOptions = {
-      from: "sicegroup.master@gmail.com",
+      from: "info@sicegroup.com",
       to: "jhernandez@sicegroup.com",
       subject: "CV Bolsa de trabajo Sice Group",
       html: `

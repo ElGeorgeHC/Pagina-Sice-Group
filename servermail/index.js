@@ -8,9 +8,14 @@ const app = express();
 
 
 
-app.use(cors({
-  origin: "https://pagina-sice-group.pages.dev"
-}));
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+``
+
 
 
 

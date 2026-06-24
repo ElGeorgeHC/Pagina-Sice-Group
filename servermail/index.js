@@ -20,12 +20,13 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     }
 
     const transporter = nodemailer.createTransport({
-      host: "smtp.office365.com",
-      port: 587,
-      secure: false,
+      //host: "smtp.office365.com",
+      //port: 587,
+      //secure: false,
+      service: "gmail",
       auth: {
-        user: "info@sicegroup.com",
-        pass: process.env.EMAIL_PASS,
+        user: "sicegroup.master@gmail.com",
+        pass: "S1c3*saw2025",
       },
     });
 

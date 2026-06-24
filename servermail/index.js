@@ -30,7 +30,7 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
       service: "gmail",
       auth: {
         user: "sicegroup.master@gmail.com",
-        pass: "S1c3*saw2025",
+        pass: process.env.EMAIL_PASS,
       },
     });
 

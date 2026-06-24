@@ -7,11 +7,11 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 
+
 app.use(cors({
-  origin: "*",
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type"]
+  origin: "https://pagina-sice-group.pages.dev"
 }));
+
 
 
 

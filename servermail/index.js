@@ -25,7 +25,7 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
       secure: false,
       auth: {
         user: "info@sicegroup.com",
-        pass: "ifosg715/",
+        pass: process.env.EMAIL_PASS,
       },
     });
 

@@ -15,14 +15,6 @@ app.use(cors({
   origin: "https://pagina-sice-group.pages.dev"
 }));
 ``
-
-
-
-
-
-
-
-
 const upload = multer({ dest: "uploads/" });
 
 app.post("/enviar-cv", upload.single("cv"), async (req, res) => {

@@ -1,47 +1,38 @@
 const express = require("express");
 const multer = require("multer");
-const nodemailer = require("nodemailer");
 const cors = require("cors");
-const PORT = process.env.PORT || 3000;
+const { Resend } = require("resend");
+const fs = require("fs");
 
 const app = express();
-
-
-
-
-
+const PORT = process.env.PORT || 3000;
 
 app.use(cors({
-  origin: "https://pagina-sice-group.pages.dev"
+  origin: "*"
 }));
-``
+
 const upload = multer({ dest: "uploads/" });
+
+// ✅ Inicializar Resend
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
   try {
     const { nombre, correo, telefono } = req.body;
     const archivo = req.file;
 
-    // Validación PDF
     if (!archivo || archivo.mimetype !== "application/pdf") {
       return res.status(400).send("Solo se permiten archivos PDF");
     }
 
-    const transporter = nodemailer.createTransport({
-      host: "smtp.office365.com",
-      port: 587,
-      secure: false,
-      //service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    // ✅ RESPONDER INMEDIATAMENTE
+    res.send("✅ CV recibido correctamente");
 
-    const mailOptions = {
-      from: "info@sicegroup.com",
-      to: "jhernandez@sicegroup.com",
-      subject: "CV Bolsa de trabajo Sice Group",
+    // ✅ ENVIAR CORREO EN SEGUNDO PLANO
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: ["jhernandez@sicegroup.com"], // 🔴 cambia esto
+      subject: "Nuevo CV recibido",
       html: `
         <h3>Nuevo CV recibido</h3>
         <p><strong>Nombre:</strong> ${nombre}</p>
@@ -51,37 +42,21 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
       attachments: [
         {
           filename: archivo.originalname,
-          path: archivo.path,
-        },
-      ],
-    };
+          content: fs.readFileSync(archivo.path)
+        }
+      ]
+    });
 
-    
+    // ✅ BORRAR ARCHIVO TEMPORAL
+    fs.unlink(archivo.path, (err) => {
+      if (err) console.error("Error eliminando archivo:", err);
+    });
 
-res.send("CV recibido ✅");
-
-setTimeout(() => {
-  transporter.sendMail(mailOptions)
-    .then(info => console.log("Correo enviado:", info))
-    .catch(err => console.error("ERROR SMTP:", err));
-}, 2000);
-
-  } 
-  
- 
-
-catch (error) {
-  console.error("ERROR REAL:", error);
-  res.status(500).send(error.message);
-
-}
-
-  
+  } catch (error) {
+    console.error("ERROR:", error);
+  }
 });
+
 app.listen(PORT, () => {
-  console.log("Servidor corriendo en " + PORT);
-
-
-
-
+  console.log("Servidor corriendo en puerto " + PORT);
 });

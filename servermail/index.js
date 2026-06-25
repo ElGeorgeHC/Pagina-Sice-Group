@@ -63,6 +63,9 @@ transporter.sendMail(mailOptions)
   .then(info => console.log("Correo enviado:", info))
   .catch(err => console.error("ERROR CORREO:", err));
 
+  await new Promise(resolve => setTimeout(resolve, 3000));
+
+
   } 
  
 catch (error) {

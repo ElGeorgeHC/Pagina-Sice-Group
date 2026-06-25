@@ -59,10 +59,13 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     await transporter.sendMail(mailOptions);
 
     res.send("CV enviado correctamente ✅"); 
-  } catch (error) {
-    console.error(error);
-    res.status(500).send("Error al enviar el CV ❌");
-  }
+  } 
+ 
+catch (error) {
+  console.error("ERROR DETALLADO:", error);
+  res.status(500).send(error.message);
+}
+
   
 });
 app.listen(PORT, () => {

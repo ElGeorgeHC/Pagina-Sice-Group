@@ -56,7 +56,7 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
       ],
     };
 
-    await transporter.sendMail(mailOptions);
+    //await transporter.sendMail(mailOptions);
 
     res.send("CV enviado correctamente ✅"); 
   } 

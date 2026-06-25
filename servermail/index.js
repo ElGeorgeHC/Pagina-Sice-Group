@@ -59,14 +59,13 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     
 res.send("CV recibido ✅");
 
+await new Promise(resolve => setTimeout(resolve, 3000));
+
 transporter.sendMail(mailOptions)
   .then(info => console.log("Correo enviado:", info))
   .catch(err => console.error("ERROR CORREO:", err));
-
-  await new Promise(resolve => setTimeout(resolve, 3000));
-
-
   } 
+  
  
 catch (error) {
   console.error("ERROR DETALLADO:", error);

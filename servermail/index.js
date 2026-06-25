@@ -57,19 +57,23 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     };
 
     
+
 res.send("CV recibido ✅");
 
-await new Promise(resolve => setTimeout(resolve, 3000));
+setTimeout(() => {
+  transporter.sendMail(mailOptions)
+    .then(info => console.log("Correo enviado:", info))
+    .catch(err => console.error("ERROR SMTP:", err));
+}, 2000);
 
-transporter.sendMail(mailOptions)
-  .then(info => console.log("Correo enviado:", info))
-  .catch(err => console.error("ERROR CORREO:", err));
   } 
   
  
+
 catch (error) {
-  console.error("ERROR DETALLADO:", error);
+  console.error("ERROR REAL:", error);
   res.status(500).send(error.message);
+
 }
 
   

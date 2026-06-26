@@ -25,27 +25,27 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
       return res.status(400).send("Solo se permiten archivos PDF");
     }
 
-    // ✅ RESPONDER INMEDIATAMENTE
-    res.send("✅ CV recibido correctamente");
+   
 
-    // ✅ ENVIAR CORREO EN SEGUNDO PLANO
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: ["jhernandez@sicegroup.com"], // 🔴 cambia esto
-      subject: "Nuevo CV recibido",
-      html: `
-        <h3>Nuevo CV recibido</h3>
-        <p><strong>Nombre:</strong> ${nombre}</p>
-        <p><strong>Correo:</strong> ${correo}</p>
-        <p><strong>Teléfono:</strong> ${telefono}</p>
-      `,
-      attachments: [
-        {
-          filename: archivo.originalname,
-          content: fs.readFileSync(archivo.path)
-        }
-      ]
-    });
+  
+const result = await resend.emails.send({
+  from: "onboarding@resend.dev",
+  to: ["jhernandez@sicegroup.com"],
+  subject: "Nuevo CV recibido",
+  html: `
+    <h3>Nuevo CV recibido</h3>
+    <p>Nombre: ${nombre}</p>
+    <p>Correo: ${correo}</p>
+    <p>Teléfono: ${telefono}</p>
+  `,
+  attachments: [
+    {
+      filename: archivo.originalname,
+      content: fs.readFileSync(archivo.path),
+    },
+  ],
+});
+
 
     // ✅ BORRAR ARCHIVO TEMPORAL
     fs.unlink(archivo.path, (err) => {
@@ -56,6 +56,12 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     console.error("ERROR:", error);
   }
 });
+
+console.log("EMAIL RESULT:", result);
+
+// ✅ responder hasta el final
+res.send("✅ CV recibido correctamente");
+
 
 app.listen(PORT, () => {
   console.log("Servidor corriendo en puerto " + PORT);

@@ -15,6 +15,7 @@ const upload = multer({
 });
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+console.log("API KEY REAL:", process.env.RESEND_API_KEY);
 
 app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
   try {
@@ -44,7 +45,7 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     });
 
     if (error) {
-      console.log("API KEY REAL:", process.env.RESEND_API_KEY);
+      console.error("RESEND ERROR:", error);
       return res.status(500).send("Error enviando correo");
     }
 

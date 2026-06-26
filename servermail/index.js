@@ -3,18 +3,19 @@ const multer = require("multer");
 const cors = require("cors");
 const { Resend } = require("resend");
 const fs = require("fs");
+const path = require("path");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors({
-  origin: "*"
-}));
+app.use(cors({ origin: "*" }));
 
-const upload = multer({ dest: "uploads/" });
+const upload = multer({
+  dest: path.join(__dirname, "uploads")
+});
 
-// ✅ Inicializar Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
+
 app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
   try {
     const { nombre, correo, telefono } = req.body;
@@ -55,4 +56,8 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     console.error("ERROR:", error);
     res.status(500).send("Error interno");
   }
+});
+
+app.listen(PORT, () => {
+  console.log("Servidor corriendo en puerto " + PORT);
 });

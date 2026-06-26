@@ -15,54 +15,44 @@ const upload = multer({ dest: "uploads/" });
 
 // ✅ Inicializar Resend
 const resend = new Resend(process.env.RESEND_API_KEY);
-
 app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
   try {
     const { nombre, correo, telefono } = req.body;
     const archivo = req.file;
 
     if (!archivo || archivo.mimetype !== "application/pdf") {
-      return res.status(400).send("Solo se permiten archivos PDF");
+      return res.status(400).send("Solo PDF");
     }
 
-   
-
-  
-const result = await resend.emails.send({
-  from: "onboarding@resend.dev",
-  to: ["jhernandez@sicegroup.com"],
-  subject: "Nuevo CV recibido",
-  html: `
-    <h3>Nuevo CV recibido</h3>
-    <p>Nombre: ${nombre}</p>
-    <p>Correo: ${correo}</p>
-    <p>Teléfono: ${telefono}</p>
-  `,
-  attachments: [
-    {
-      filename: archivo.originalname,
-      content: fs.readFileSync(archivo.path),
-    },
-  ],
-});
-
-
-    // ✅ BORRAR ARCHIVO TEMPORAL
-    fs.unlink(archivo.path, (err) => {
-      if (err) console.error("Error eliminando archivo:", err);
+    const { data, error } = await resend.emails.send({
+      from: "CV <no-reply@tu-dominio.com>",
+      to: ["jhernandez@sicegroup.com"],
+      subject: "Nuevo CV recibido",
+      html: `
+        <h3>Nuevo CV</h3>
+        <p>${nombre}</p>
+        <p>${correo}</p>
+        <p>${telefono}</p>
+      `,
+      attachments: [
+        {
+          filename: archivo.originalname,
+          content: fs.readFileSync(archivo.path),
+        },
+      ],
     });
 
+    if (error) {
+      console.error("RESEND ERROR:", error);
+      return res.status(500).send("Error enviando correo");
+    }
+
+    fs.unlink(archivo.path, () => {});
+    console.log("EMAIL OK:", data);
+
+    res.send("✅ CV enviado correctamente");
   } catch (error) {
     console.error("ERROR:", error);
+    res.status(500).send("Error interno");
   }
-});
-
-console.log("EMAIL RESULT:", result);
-
-// ✅ responder hasta el final
-res.send("✅ CV recibido correctamente");
-
-
-app.listen(PORT, () => {
-  console.log("Servidor corriendo en puerto " + PORT);
 });

@@ -44,7 +44,7 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     });
 
     if (error) {
-      console.error("RESEND ERROR:", error);
+      console.log("API KEY REAL:", process.env.RESEND_API_KEY);
       return res.status(500).send("Error enviando correo");
     }
 

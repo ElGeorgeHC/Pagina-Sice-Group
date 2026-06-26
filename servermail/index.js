@@ -25,14 +25,14 @@ app.post("/enviar-cv", upload.single("cv"), async (req, res) => {
     }
 
     const { data, error } = await resend.emails.send({
-      from: "CV <no-reply@tu-dominio.com>",
+      from: "onboarding@resend.dev",
       to: ["jhernandez@sicegroup.com"],
       subject: "Nuevo CV recibido",
       html: `
-        <h3>Nuevo CV</h3>
-        <p>${nombre}</p>
-        <p>${correo}</p>
-        <p>${telefono}</p>
+        <h3>Nuevo CV recibido</h3>
+        <p>Nombre: ${nombre}</p>
+        <p>Correo: ${correo}</p>
+        <p>Teléfono: ${telefono}</p>
       `,
       attachments: [
         {

@@ -351,7 +351,7 @@ h1 {
 .section-heading h2,
 .infrastructure h2,
 .contact h2 {
-  font-size: clamp(1.05rem, 4.3vw, 3.55rem);
+  font-size: clamp(1.05rem, 4.3vw, 2.55rem);
   line-height: 1.02;
   margin-bottom: 0.75rem;
 }
